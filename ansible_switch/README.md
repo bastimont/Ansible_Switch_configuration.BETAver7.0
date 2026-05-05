@@ -107,6 +107,8 @@ That's it. The interactive menu handles everything. Just make sure to open your 
 | **6** | ipconfig (displays IP addresses of all network adapters) |
 | **7** | Traceroute (tracks the route of a server or switch or device) |
 | **8** | ARP table (shows the current connections via the arp -a command) |
+| **9** | Netstat (displays all active connections, listening ports, etc.) |
+| **X** | Toggle Module (1 or 2) |
 | **0** | Exit |
 
 ---
