@@ -109,7 +109,7 @@ That's it. The interactive menu handles everything. Just make sure to open your 
 | **8** | ARP table (shows the current connections via the arp -a command) |
 | **9** | Netstat (displays all active connections, listening ports, etc.) |
 | **X** | Toggle Module (1 or 2) |
-| **0** | Exit |
+| **0** | Exit **(only for the CLI version)** |
 
 ---
 
