@@ -1,0 +1,1019 @@
+/* ──────────────────────────────────────────────────────────────────────────────
+   Ansible Switch Manager Web Interface - Styles
+   Matches the CLI color scheme and layout
+   ────────────────────────────────────────────────────────────────────────────── */
+
+/* ─── CSS Variables (matching CLI ANSI colors) ─── */
+:root {
+    --color-bg: #1e1e2e;
+    --color-surface: #252537;
+    --color-surface-hover: #2d2d42;
+    --color-cyan: #00e5ff;
+    --color-cyan-dim: #008899;
+    --color-green: #00ff88;
+    --color-green-dim: #009955;
+    --color-yellow: #ffcc00;
+    --color-yellow-dim: #997700;
+    --color-red: #ff4444;
+    --color-red-dim: #992222;
+    --color-magenta: #ff66ff;
+    --color-dim: #888899;
+    --color-dim-brighter: #aaaabb;
+    --color-text: #e0e0e8;
+    --color-border: #3a3a55;
+    --color-input-bg: #1a1a28;
+    --font-mono: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+}
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: var(--font-mono);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ─── App Container ─── */
+#app {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ─── Banner ─── */
+.banner {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.banner-box {
+    border: 2px solid var(--color-cyan);
+    border-radius: 4px;
+    padding: 12px 20px;
+    display: inline-block;
+}
+
+.banner-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--color-cyan);
+    letter-spacing: 2px;
+}
+
+.banner-subtitle {
+    font-size: 0.85rem;
+    color: var(--color-cyan);
+    opacity: 0.7;
+    margin-top: 4px;
+}
+
+/* ─── Navigation ─── */
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 24px;
+    padding: 12px;
+    background: var(--color-surface);
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+}
+
+.nav-btn {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    background: transparent;
+    color: var(--color-yellow);
+    border: 1px solid var(--color-yellow-dim);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.nav-btn:hover {
+    background: var(--color-yellow-dim);
+    color: var(--color-bg);
+}
+
+.nav-btn.active {
+    background: var(--color-yellow);
+    color: var(--color-bg);
+}
+
+/* ─── Views ─── */
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+/* ─── Topology Panel ─── */
+.topology-panel {
+    margin-bottom: 24px;
+}
+
+.topology-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.panel-header, .panel-footer {
+    color: var(--color-cyan);
+    font-size: 0.9rem;
+    white-space: pre;
+}
+
+.module-toggle-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    background: transparent;
+    color: var(--color-cyan);
+    border: 1px solid var(--color-cyan-dim);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.module-toggle-btn:hover {
+    background: var(--color-cyan-dim);
+    color: var(--color-bg);
+}
+
+.topology-tree {
+    padding: 8px 16px;
+}
+
+.tier-header {
+    color: var(--color-yellow);
+    font-weight: bold;
+    margin: 8px 0 4px;
+    font-size: 0.9rem;
+}
+
+.tier-item {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    font-size: 0.9rem;
+}
+
+.tier-connector {
+    color: var(--color-cyan);
+    margin-right: 8px;
+}
+
+.tier-name {
+    font-weight: bold;
+    color: var(--color-text);
+    min-width: 60px;
+}
+
+.tier-ip {
+    color: var(--color-green);
+    min-width: 140px;
+}
+
+.tier-role {
+    color: var(--color-dim);
+    font-size: 0.8rem;
+}
+
+.config-page-row {
+    padding: 8px 16px 4px;
+}
+
+.config-item {
+    padding: 6px 0 2px;
+    border-top: 1px dashed var(--color-border);
+}
+
+.module-2-vlan-section {
+    margin: 4px 0;
+}
+
+.module-2-vlan-label {
+    color: var(--color-magenta);
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin: 6px 0 2px;
+}
+
+.module-2-mgmt-label {
+    color: var(--color-yellow);
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin: 6px 0 2px;
+}
+
+.config-link {
+    color: var(--color-green);
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.config-link:hover {
+    color: var(--color-cyan);
+    text-decoration: underline;
+}
+
+.ipconfig-output {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 12px;
+    margin: 12px 0;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.traceroute-output {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 12px;
+    margin: 12px 0;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.arp-output {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 12px;
+    margin: 12px 0;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.arp-output .line-header {
+    color: var(--color-cyan);
+    font-weight: bold;
+}
+
+.arp-output .line-entry {
+    color: var(--color-green);
+}
+
+.arp-output .line-info {
+    color: var(--color-dim);
+}
+
+.line-hop {
+    color: var(--color-green);
+}
+
+.line-header {
+    color: var(--color-cyan);
+    font-weight: bold;
+}
+
+.traceroute-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.traceroute-prefix {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    background: var(--color-border);
+    color: var(--color-cyan);
+    border: 1px solid var(--color-border);
+    border-radius: 3px 0 0 3px;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.traceroute-field {
+    border-radius: 0 3px 3px 0;
+}
+
+/* ─── Menu Panel ─── */
+.menu-panel {
+    margin-top: 16px;
+}
+
+.menu-title {
+    color: var(--color-magenta);
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-btn {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    padding: 12px 20px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.15s;
+    text-align: left;
+}
+
+.menu-btn:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-yellow-dim);
+}
+
+.menu-key {
+    color: var(--color-yellow);
+    font-weight: bold;
+    min-width: 30px;
+}
+
+/* ─── Section Titles ─── */
+.section-title {
+    color: var(--color-cyan);
+    font-size: 0.95rem;
+    font-weight: normal;
+    margin-bottom: 16px;
+    white-space: pre;
+}
+
+/* ─── Action Panels ─── */
+.action-panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 20px;
+}
+
+/* ─── Switch List ─── */
+.switch-list {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--color-input-bg);
+    border-radius: 3px;
+    border: 1px solid var(--color-border);
+}
+
+.switch-list-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    gap: 12px;
+}
+
+.switch-list-num {
+    color: var(--color-yellow);
+    font-weight: bold;
+    min-width: 30px;
+}
+
+.switch-list-name {
+    color: var(--color-text);
+    font-weight: bold;
+    min-width: 60px;
+}
+
+.switch-list-ip {
+    color: var(--color-green);
+}
+
+/* ─── Input Groups ─── */
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    color: var(--color-cyan);
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.input-field {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    padding: 10px 14px;
+    width: 100%;
+    max-width: 400px;
+    background: var(--color-input-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.input-field:focus {
+    border-color: var(--color-cyan);
+}
+
+.input-field::placeholder {
+    color: var(--color-dim);
+}
+
+select.input-field {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888899' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+select.input-field option {
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+input[type="number"].input-field {
+    max-width: 120px;
+}
+
+/* ─── Buttons ─── */
+.action-btn {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    padding: 10px 24px;
+    background: var(--color-cyan-dim);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.action-btn:hover {
+    background: var(--color-cyan);
+    color: var(--color-bg);
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.back-btn {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 8px 20px;
+    background: transparent;
+    color: var(--color-dim-brighter);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 12px;
+}
+
+.back-btn:hover {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+}
+
+/* ─── Ping Mode Selector ─── */
+.ping-mode-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.mode-btn {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    padding: 10px 16px;
+    background: var(--color-input-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+}
+
+.mode-btn:hover {
+    border-color: var(--color-cyan-dim);
+}
+
+.mode-btn.active {
+    border-color: var(--color-cyan);
+    background: var(--color-cyan-dim);
+    color: #fff;
+}
+
+.ping-section {
+    margin-bottom: 12px;
+}
+
+/* ─── Ping Output ─── */
+.ping-output {
+    margin-top: 16px;
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 12px;
+}
+
+.ping-output pre {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.4;
+}
+
+.netstat-output {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 12px;
+    margin: 12px 0;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.netstat-output .line-header {
+    color: var(--color-cyan);
+    font-weight: bold;
+}
+
+.netstat-output .line-connected {
+    color: var(--color-green);
+}
+
+.netstat-output .line-warning {
+    color: var(--color-yellow);
+}
+
+.netstat-output .line-info {
+    color: var(--color-text);
+}
+
+
+/* Ping line types */
+.line-reply {
+    color: var(--color-green);
+}
+
+.line-timeout {
+    color: var(--color-red);
+}
+
+.line-unreachable {
+    color: var(--color-yellow);
+}
+
+.line-stats {
+    color: var(--color-dim);
+}
+
+.line-info {
+    color: var(--color-text);
+}
+
+/* ─── Progress Bar ─── */
+.progress-bar {
+    margin-top: 16px;
+    height: 24px;
+    background: var(--color-input-bg);
+    border-radius: 3px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-cyan-dim), var(--color-cyan));
+    width: 0%;
+    transition: width 0.3s;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    color: var(--color-text);
+}
+
+/* ─── Summary Table ─── */
+.summary-table {
+    margin-top: 20px;
+}
+
+.summary-title {
+    color: var(--color-cyan);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+#ping-all-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+#ping-all-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--color-input-bg);
+    color: var(--color-dim-brighter);
+    border-bottom: 1px solid var(--color-border);
+}
+
+#ping-all-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.status-up {
+    color: var(--color-green);
+    font-weight: bold;
+}
+
+.status-down {
+    color: var(--color-red);
+    font-weight: bold;
+}
+
+.status-no-ip {
+    color: var(--color-yellow);
+}
+
+.status-blocked {
+    color: var(--color-yellow);
+    font-weight: bold;
+}
+
+/* ─── Discovery ─── */
+.dim-text {
+    color: var(--color-dim);
+    font-size: 0.85rem;
+}
+
+.discovery-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.discovery-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.discovery-title {
+    flex-shrink: 0;
+}
+
+.status-badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    animation: badge-pulse 1.5s infinite;
+}
+
+@keyframes badge-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.status-badge.active {
+    background: var(--color-cyan-dim);
+    color: #fff;
+}
+
+.status-badge.error {
+    background: var(--color-red-dim);
+    color: #fff;
+    animation: none;
+}
+
+.status-badge.idle {
+    background: var(--color-border);
+    color: var(--color-dim);
+    animation: none;
+}
+
+.status-badge.paused {
+    background: var(--color-yellow-dim);
+    color: #fff;
+    animation: none;
+}
+
+.refresh-toggle-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    background: transparent;
+    color: var(--color-yellow);
+    border: 1px solid var(--color-yellow-dim);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.refresh-toggle-btn:hover {
+    background: var(--color-yellow-dim);
+    color: var(--color-bg);
+}
+
+.refresh-toggle-btn.paused {
+    background: var(--color-green-dim);
+    border-color: var(--color-green);
+    color: #fff;
+}
+
+.section-subtitle {
+    color: var(--color-cyan);
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-bottom: 16px;
+    white-space: pre;
+}
+
+.discovery-assign-panel {
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-cyan-dim);
+    border-radius: 4px;
+    padding: 16px;
+    margin: 12px 0;
+}
+
+.discovery-table-container {
+    margin-top: 16px;
+    overflow-x: auto;
+}
+
+.discovery-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.discovery-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--color-input-bg);
+    color: var(--color-dim-brighter);
+    border-bottom: 1px solid var(--color-border);
+    font-weight: bold;
+}
+
+.discovery-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.device-status-online {
+    color: var(--color-green);
+    font-weight: bold;
+}
+
+.device-status-offline {
+    color: var(--color-red);
+    font-weight: bold;
+}
+
+.device-status-discovered {
+    color: var(--color-cyan);
+}
+
+.device-ip {
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+.device-mac {
+    color: var(--color-dim);
+}
+
+.device-name {
+    color: var(--color-yellow);
+}
+
+.device-assign-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    background: var(--color-cyan-dim);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 48px;
+    text-align: center;
+}
+
+.device-assign-btn:hover:not(:disabled) {
+    background: var(--color-cyan);
+    color: var(--color-bg);
+}
+
+.device-assign-btn:disabled {
+    cursor: default;
+    background: var(--color-dim);
+    color: var(--color-bg);
+}
+
+.device-assign-btn.ping-result {
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    cursor: default;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+/* ─── Modal ─── */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: var(--color-surface);
+    border: 1px solid var(--color-cyan);
+    border-radius: 4px;
+    padding: 24px;
+    max-width: 420px;
+    width: 90%;
+}
+
+.modal-content h3 {
+    color: var(--color-cyan);
+    margin-bottom: 8px;
+}
+
+.modal-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+/* ─── Messages ─── */
+.message {
+    padding: 10px 14px;
+    border-radius: 3px;
+    margin: 12px 0;
+    font-size: 0.9rem;
+}
+
+.message.hidden {
+    display: none;
+}
+
+.message.success {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid var(--color-green-dim);
+    color: var(--color-green);
+}
+
+.message.error {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid var(--color-red-dim);
+    color: var(--color-red);
+}
+
+.message.info {
+    background: rgba(0, 229, 255, 0.1);
+    border: 1px solid var(--color-cyan-dim);
+    color: var(--color-cyan);
+}
+
+/* ─── Utility ─── */
+.hidden {
+    display: none !important;
+}
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center;
+    padding: 24px 0;
+    border-top: 1px solid var(--color-border);
+    margin-top: 32px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+    html {
+        font-size: 12px;
+    }
+
+    #app {
+        padding: 10px;
+    }
+
+    .banner-title {
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .nav-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .menu-btn {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .input-field {
+        max-width: 100%;
+    }
+
+    .ping-mode-selector {
+        flex-direction: column;
+    }
+
+    .discovery-table {
+        font-size: 0.75rem;
+    }
+}

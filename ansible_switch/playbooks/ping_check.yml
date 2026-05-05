@@ -1,0 +1,37 @@
+---
+# =============================================================
+#  ping_check.yml — Ping one or all switches and report status
+#  Usage:
+#    ansible-playbook playbooks/ping_check.yml -e "target=A1-B"
+#    ansible-playbook playbooks/ping_check.yml -e "target=all_switches"
+# =============================================================
+
+- name: Ping Check
+  hosts: "{{ target | default('all_switches') }}"
+  gather_facts: true
+
+  tasks:
+    - name: Ansible connectivity check (module ping)
+      ansible.builtin.ping:
+      register: ansible_ping_result
+      ignore_errors: true
+
+    - name: Perform actual OS ping
+      ansible.builtin.shell: >
+        {% if ansible_facts.system == 'Windows' %}
+        ping -n 2 -w 100 {{ switch_ip }}
+        {% else %}
+        ping -c 2 -W 1 {{ switch_ip }}
+        {% endif %}
+      register: os_ping_result
+      changed_when: false
+      ignore_errors: true
+
+    - name: Report ping result
+      ansible.builtin.debug:
+        msg: |
+          ┌─────────────────────────────────────────────────────┐
+          │ Switch : {{ inventory_hostname | ljust(10) }} │ IP: {{ switch_ip }}
+          │ Ansible: {{ 'REACHABLE ✅' if ansible_ping_result.ping is defined else 'UNREACHABLE ❌' }}
+          │ OS Ping: {{ 'SUCCESS ✅' if os_ping_result.rc | int == 0 else 'FAILED ❌' }}
+          └─────────────────────────────────────────────────────┘

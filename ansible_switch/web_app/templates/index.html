@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansible Switch Manager</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- ─── BANNER ─── -->
+        <header class="banner">
+            <div class="banner-box">
+                <div class="banner-title">A N S I B L E &nbsp; S W I T C H &nbsp; M A N A G E R</div>
+                <div class="banner-subtitle">Fool-Proof Network Tool</div>
+            </div>
+        </header>
+
+        <!-- ─── NAVIGATION ─── -->
+        <nav class="navbar" id="navbar">
+            <button class="nav-btn" data-view="home" onclick="navigateTo('home')">[1] Home</button>
+            <button class="nav-btn" data-view="assign" onclick="navigateTo('assign')">[2] Assign IP</button>
+            <button class="nav-btn" data-view="ping" onclick="navigateTo('ping')">[3] Ping</button>
+            <button class="nav-btn" data-view="ping-all" onclick="navigateTo('ping-all')">[4] Ping All</button>
+            <button class="nav-btn" data-view="discovery" onclick="navigateTo('discovery')">[5] Discovery</button>
+            <button class="nav-btn" data-view="ipconfig" onclick="navigateTo('ipconfig')">[6] ipconfig</button>
+            <button class="nav-btn" data-view="traceroute" onclick="navigateTo('traceroute')">[7] Traceroute</button>
+            <button class="nav-btn" data-view="arp" onclick="navigateTo('arp')">[8] ARP Table</button>
+            <button class="nav-btn" data-view="netstat" onclick="navigateTo('netstat')">[9] Netstat</button>
+            <button class="nav-btn" onclick="toggleModule()">[X] Toggle Module</button>
+        </nav>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VIEW: HOME (Topology + Menu)                               -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main id="view-home" class="view active">
+            <section class="topology-panel">
+                <div class="topology-header-row">
+                    <div class="panel-header">┌─ TOPOLOGY ──────────────────────────────────────────────────┐</div>
+                    <button id="module-toggle-btn" class="module-toggle-btn" onclick="toggleModule()">🔄 Module: 1 (Single VLAN)</button>
+                </div>
+                <div id="topology-tree" class="topology-tree">
+                    <!-- Populated by JS -->
+                </div>
+                <div id="config-page-row" class="config-page-row">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="panel-footer">└────────────────────────────────────────────────────────────┘</div>
+            </section>
+
+            <section class="menu-panel">
+                <h2 class="menu-title">OPTIONS</h2>
+                <div class="menu-options">
+                    <button class="menu-btn" onclick="resetIPs()">
+                        <span class="menu-key">[1]</span>
+                        <span class="menu-label">Reset all IPs to defaults (refresh topology)</span>
+                    </button>
+                    <button class="menu-btn" onclick="navigateTo('assign')">
+                        <span class="menu-key">[2]</span>
+                        <span class="menu-label">Assign IP to a switch</span>
+                    </button>
+                    <button class="menu-btn" onclick="navigateTo('ping')">
+                        <span class="menu-key">[3]</span>
+                        <span class="menu-label">Ping a switch</span>
+                    </button>
+                    <button class="menu-btn" onclick="navigateTo('ping-all')">
+                        <span class="menu-key">[4]</span>
+                        <span class="menu-label">Ping ALL switches</span>
+                    </button>
+                    <button class="menu-btn" onclick="navigateTo('discovery')">
+                        <span class="menu-key">[5]</span>
+                        <span class="menu-label">Live Network Discovery &amp; Monitor</span>
+                    </button>
+                    <button class="menu-btn" onclick="navigateTo('ipconfig')">
+                        <span class="menu-key">[6]</span>
+                        <span class="menu-label">ipconfig / Config Page IP</span>
+                    </button>
+                    <button class="menu-btn" onclick="navigateTo('traceroute')">
+                        <span class="menu-key">[7]</span>
+                        <span class="menu-label">Traceroute (trace path to a host)</span>
+                    </button>
+                    <button class="menu-btn" onclick="navigateTo('arp')">
+                        <span class="menu-key">[8]</span>
+                        <span class="menu-label">ARP table (arp -a)</span>
+                    </button>
+                    <button class="menu-btn" onclick="navigateTo('netstat')">
+                        <span class="menu-key">[9]</span>
+                        <span class="menu-label">Network connections (netstat -an)</span>
+                    </button>
+                    <button class="menu-btn" onclick="toggleModule()">
+                        <span class="menu-key">[X]</span>
+                        <span class="menu-label" id="menu-module-label">Toggle architecture module</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VIEW: ASSIGN IP                                            -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main id="view-assign" class="view">
+            <section class="action-panel">
+                <h2 class="section-title">── ASSIGN IP ─────────────────────────────────────────────────</h2>
+                <div id="assign-switch-list" class="switch-list">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="input-group">
+                    <label for="assign-select">Select switch</label>
+                    <select id="assign-select" class="input-field">
+                        <option value="">-- Choose a switch --</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="assign-ip-input">New IP address</label>
+                    <input type="text" id="assign-ip-input" class="input-field" placeholder="e.g. 192.168.1.50" autocomplete="off">
+                </div>
+                <div id="assign-message" class="message hidden"></div>
+                <button class="action-btn" onclick="assignIP()">Assign IP</button>
+                <button class="back-btn" onclick="navigateTo('home')">Back to Home</button>
+            </section>
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VIEW: PING SINGLE                                          -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main id="view-ping" class="view">
+            <section class="action-panel">
+                <h2 class="section-title">── PING ──────────────────────────────────────────────────────</h2>
+                <div class="ping-mode-selector">
+                    <button class="mode-btn active" data-mode="switch" onclick="setPingMode('switch')">
+                        [1] Ping a switch (uses its configured IP)
+                    </button>
+                    <button class="mode-btn" data-mode="custom" onclick="setPingMode('custom')">
+                        [2] Ping any device / hostname / IP address
+                    </button>
+                </div>
+
+                <div id="ping-switch-section" class="ping-section">
+                    <div class="input-group">
+                        <label for="ping-switch-select">Select switch to ping</label>
+                        <select id="ping-switch-select" class="input-field">
+                            <option value="">-- Choose a switch --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="ping-custom-section" class="ping-section hidden">
+                    <div class="input-group">
+                        <label for="ping-custom-input">Enter hostname or IP address</label>
+                        <input type="text" id="ping-custom-input" class="input-field" placeholder="e.g. 8.8.8.8 or google.com" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="ping-count">How many ping packets? [default: 4]</label>
+                    <input type="number" id="ping-count" class="input-field" value="4" min="1" max="20">
+                </div>
+
+                <button class="action-btn" onclick="doPing()">Ping</button>
+
+                <div id="ping-output" class="ping-output hidden">
+                    <pre id="ping-result"></pre>
+                </div>
+
+                <button class="back-btn" onclick="navigateTo('home')">Back to Home</button>
+            </section>
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VIEW: PING ALL                                             -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main id="view-ping-all" class="view">
+            <section class="action-panel">
+                <h2 class="section-title">── PING ALL SWITCHES ─────────────────────────────────────────</h2>
+
+                <div class="input-group">
+                    <label for="ping-all-count">Packets per switch [default: 2]</label>
+                    <input type="number" id="ping-all-count" class="input-field" value="2" min="1" max="10">
+                </div>
+
+                <button class="action-btn" onclick="doPingAll()">Ping All Switches</button>
+
+                <div id="ping-all-progress" class="progress-bar hidden">
+                    <div class="progress-fill"></div>
+                    <span class="progress-text">Pinging...</span>
+                </div>
+
+                <div id="ping-all-output" class="ping-output hidden">
+                    <pre id="ping-all-result"></pre>
+                </div>
+
+                <div id="ping-all-summary" class="summary-table hidden">
+                    <h3 class="summary-title">── SUMMARY ───────────────────────────────────────────────────</h3>
+                    <table id="ping-all-table">
+                        <thead>
+                            <tr>
+                                <th>Switch</th>
+                                <th>IP Address</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ping-all-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="back-btn" onclick="navigateTo('home')">Back to Home</button>
+            </section>
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VIEW: LIVE DISCOVERY                                       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main id="view-discovery" class="view">
+            <section class="action-panel discovery-panel">
+                <div class="discovery-header">
+                    <h2 class="section-title discovery-title" style="margin-bottom:0">── LIVE NETWORK MONITOR ────────────────</h2>
+                    <span id="discovery-status-badge" class="status-badge hidden"></span>
+                    <button id="discovery-refresh-toggle" class="refresh-toggle-btn" onclick="toggleDiscoveryRefresh()">⏸ Pause Auto-Refresh</button>
+                </div>
+                <p class="dim-text" id="discovery-subnets">Subnets: loading...</p>
+
+                <div class="discovery-actions">
+                    <button class="action-btn" onclick="refreshDiscovery()">[R] Refresh</button>
+                    <button class="action-btn" onclick="scanNetwork()">[S] Scan Network</button>
+                    <button class="action-btn" onclick="openAssignPanel()">[A] Assign IP</button>
+                    <button class="action-btn" onclick="navigateTo('home')">[Q] Back to Home</button>
+                </div>
+
+                <div id="assign-discovery-panel" class="hidden discovery-assign-panel">
+                    <h3 class="section-subtitle">── ASSIGN DISCOVERED IP ──────────────────────────────────────</h3>
+                    <div class="input-group">
+                        <label for="assign-discovery-ip-input">Enter the DISCOVERED IP to assign</label>
+                        <input type="text" id="assign-discovery-ip-input" class="input-field" placeholder="e.g. 192.168.1.50" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label for="assign-discovery-switch-select">Assign to which switch?</label>
+                        <select id="assign-discovery-switch-select" class="input-field">
+                            <option value="">-- Choose a switch --</option>
+                        </select>
+                    </div>
+                    <div id="assign-discovery-message" class="message hidden"></div>
+                    <div class="modal-actions">
+                        <button class="action-btn" onclick="confirmAssignDiscoveryPanel()">Assign</button>
+                        <button class="back-btn" onclick="closeAssignPanel()">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="discovery-table-container">
+                    <table class="discovery-table">
+                        <thead>
+                            <tr>
+                                <th>STATUS</th>
+                                <th>IP ADDRESS</th>
+                                <th>MAC ADDRESS</th>
+                                <th>ASSIGNED TO</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="discovery-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="assign-discovery-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <h3>Assign Discovered IP</h3>
+                        <p class="dim-text" id="assign-discovery-ip"></p>
+                        <div class="input-group">
+                            <label for="assign-discovery-select">Assign to which switch?</label>
+                            <select id="assign-discovery-select" class="input-field">
+                                <option value="">-- Choose a switch --</option>
+                            </select>
+                        </div>
+                        <div id="assign-discovery-message" class="message hidden"></div>
+                        <div class="modal-actions">
+                            <button class="action-btn" onclick="confirmAssignDiscovery()">Assign</button>
+                            <button class="back-btn" onclick="closeAssignModal()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VIEW: IPCONFIG                                             -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main id="view-ipconfig" class="view">
+            <section class="action-panel">
+                <h2 class="section-title">── SYSTEM IPCONFIG ─────────────────────────────────────────</h2>
+                <button class="action-btn" onclick="loadIpconfig()">Load ipconfig</button>
+                <pre id="ipconfig-output" class="ipconfig-output"></pre>
+
+                <h3 class="section-subtitle">── CONFIG PAGE IP ──────────────────────────────────────</h3>
+                <div id="config-ip-display">
+                    <p class="dim-text">Loading...</p>
+                </div>
+                <div class="input-group">
+                    <label for="config-ip-input">New config page IP (default: 192.168.0.1)</label>
+                    <input type="text" id="config-ip-input" class="input-field" placeholder="e.g. 192.168.0.1" autocomplete="off">
+                </div>
+                <div id="config-ip-message" class="message hidden"></div>
+                <button class="action-btn" onclick="setConfigIp()">Update</button>
+
+                <button class="back-btn" onclick="navigateTo('home')">Back to Home</button>
+            </section>
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VIEW: TRACEROUTE                                           -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main id="view-traceroute" class="view">
+            <section class="action-panel">
+                <h2 class="section-title">── TRACEROUTE ──────────────────────────────────────────────</h2>
+
+                <div id="traceroute-subnets" class="dim-text"></div>
+
+                <div class="input-group">
+                    <label for="traceroute-input">Target (IP, hostname, or domain) + optional flags</label>
+                    <div class="traceroute-input-row">
+                        <span class="traceroute-prefix">tracert</span>
+                        <input type="text" id="traceroute-input" class="input-field traceroute-field" placeholder="e.g. 8.8.8.8  or  google.com -h 15  or  -w 2000 google.com" autocomplete="off">
+                    </div>
+                </div>
+
+                <div id="traceroute-message" class="message hidden"></div>
+
+                <button class="action-btn" onclick="runTraceroute()">Trace</button>
+
+                <pre id="traceroute-output" class="traceroute-output hidden"></pre>
+
+                <button class="back-btn" onclick="navigateTo('home')">Back to Home</button>
+            </section>
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VIEW: ARP TABLE                                            -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main id="view-arp" class="view">
+            <section class="action-panel">
+                <h2 class="section-title">── ARP TABLE (arp -a) ──────────────────────────────</h2>
+
+                <button class="action-btn" onclick="loadArpTable()">Load ARP Table</button>
+
+                <pre id="arp-output" class="arp-output"></pre>
+
+                <button class="back-btn" onclick="navigateTo('home')">Back to Home</button>
+            </section>
+        </main>
+
+        <main id="view-netstat" class="view">
+            <section class="action-panel">
+                <h2 class="section-title">── NETWORK CONNECTIONS (netstat -an) ───────────────</h2>
+
+                <button class="action-btn" onclick="loadNetstat()">Load Netstat</button>
+
+                <pre id="netstat-output" class="netstat-output"></pre>
+
+                <button class="back-btn" onclick="navigateTo('home')">Back to Home</button>
+            </section>
+        </main>
+
+        <!-- ─── FOOTER ─── -->
+        <footer class="footer">
+            <span class="dim-text">Ansible Switch Manager Web Interface</span>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

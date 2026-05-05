@@ -1,0 +1,5 @@
+---
+switch_ip: "N/A"
+switch_ip_m2: "172.16.17.41"
+switch_role: "access"
+switch_description: "VLAN 2 - Tier G Port B"

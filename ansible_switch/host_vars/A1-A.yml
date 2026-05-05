@@ -1,0 +1,5 @@
+---
+switch_ip: "10.0.1.5"
+switch_ip_m2: "172.16.1.250"
+switch_role: "access"
+switch_description: "Tier A - Port A"

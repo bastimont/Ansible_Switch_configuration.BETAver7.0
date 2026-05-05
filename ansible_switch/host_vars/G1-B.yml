@@ -1,0 +1,5 @@
+---
+switch_ip: "10.0.7.2"
+switch_ip_m2: "172.16.7.253"
+switch_role: "access"
+switch_description: "Tier G - Port B"
