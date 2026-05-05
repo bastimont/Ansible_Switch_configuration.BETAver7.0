@@ -42,7 +42,7 @@ Module 2:
 ├── F1-A  (Tier F - Port A)
 ├── G1-B  (Tier G - Port B)
 └── G1-A  (Tier G - Port A)
-├
+|
 [VLAN 2]
 MAIN ── (MANAGEMENT) 
 ├── H2-B  (Tier H - Port B)
