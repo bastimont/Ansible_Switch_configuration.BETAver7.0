@@ -117,16 +117,17 @@ That's it. The interactive menu handles everything. Just make sure to open your 
 ansible_switch/
 ├── ansible.cfg                  # Project settings (local mode, yaml output)
 ├── menu.py                      # CLI Manager — Main entry point for terminal
-├── config_page_ip.txt           # NEW — Stores the custom IP for the web config page
+├── module.txt                   # NEW — Stores the active architecture (Module 1 or 2)
+├── config_page_ip.txt           # Stores the custom IP for the virtual config page link
 ├── requirements.txt             # Core dependencies (FastAPI, Uvicorn, etc.)
 ├── inventory/
-│   └── hosts.ini                # All 11 switches (MAIN + Tiers H, A, B, C, D)
+│   └── hosts.ini                # Comprehensive inventory for all 17+ switches
 ├── group_vars/
 │   └── all.yml                  # Global vars (local connection, gateway)
 ├── host_vars/                   # Per-switch YAML files (updated live by Menu or Web)
 │   ├── MAIN.yml                 # Management switch configuration
-│   ├── H1-B.yml, H1-A.yml       # Tier H configurations
-│   └── A1-B.yml … D1-A.yml      # Tier A through D configurations
+│   ├── H1-B.yml … G1-A.yml      # Module 1 (Single VLAN) tiers H through G
+│   └── H2-B.yml … G2-A.yml      # Module 2 (Dual VLAN) additional switches
 ├── playbooks/
 │   ├── show_topology.yml        # Print switch tree with current IPs
 │   ├── assign_ip.yml            # Assign IP (-e "target=X new_ip=Y")
@@ -135,11 +136,11 @@ ansible_switch/
 │   └── switch_common/           # Shared Ansible logic for all switches
 ├── templates/
 │   └── host_vars.j2             # Template used when writing new IP configurations
-└── web_app/                     # NEW — FastAPI Web Interface
-    ├── app.py                   # Web backend (Replicates CLI in browser)
+└── web_app/                     # FastAPI Web Interface
+    ├── app.py                   # Web backend (Full CLI replication)
     ├── start.bat                # Shortcut to launch the web server
-    ├── static/                  # UI assets (CSS, Images, JavaScript)
-    └── templates/               # Web pages (index.html, etc.)
+    ├── static/                  # UI assets (CSS, JavaScript, Animations)
+    └── templates/               # Web layout (index.html)
 
 ```
 
